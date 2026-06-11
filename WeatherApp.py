@@ -1,8 +1,11 @@
 import requests
+import os
+from dotenv import load_dotenv
 
 def WeatherApp():
     
-    API_KEY = "10426a25d521462cbe8125307261106"
+    load_dotenv()
+    API_KEY = os.getenv("API_KEY")
 
     print("---WELCOME TO THE WEATHER APP---")
     
