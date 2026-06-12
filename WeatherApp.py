@@ -1,13 +1,16 @@
 import requests
 import os
 from dotenv import load_dotenv
+from flask import Flask, request, render_template
 
+app = Flask(__name__)
+
+@app.route("/")
 def WeatherApp():
     
+    return render_template("WeatherApp.html")
     load_dotenv()
     API_KEY = os.getenv("API_KEY")
-
-    print("---WELCOME TO THE WEATHER APP---")
     
     city = input("What city would you like to view the weather for today?: ").capitalize()
 
@@ -30,4 +33,4 @@ def WeatherApp():
     print(f"Temperature (C): {city_temp_celsius}\n")
     print(f"Temperature feels like (C): {city_temp_feels_like}\n")
 
-WeatherApp()
+    print(data_crr_weather)
