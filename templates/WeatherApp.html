@@ -5,3 +5,17 @@
 <head>
     <h1>--- WELCOME TO MY WEATHER APP ---</h1>
 </head>
+<body>
+    <form action="/", method="POST">
+        <input type="text", name="city", placeholder="Enter a city" required>
+        <button type="submit">View Weather</button>
+    </form>
+    {% if city_name %}
+        <h2>Weather information for: {{city_name}}</h2>
+        <p>Condition: {{city_condition}}</p>
+        <p>Temperature: {{city_temp_celsius}}</p>
+        <p>Temperature feels like: {{city_temp_feels_like}}</p>
+    {% endif %}
+
+</body>
+</html> 
