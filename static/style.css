@@ -1,0 +1,18 @@
+body {
+    background-color: burlywood;
+}
+h1, h2 {
+    color: chocolate;
+}
+p {
+    color: black;
+}
+
+.inputBox {
+    display: flex;
+    justify-content: center;
+}
+.weatherHeader {
+    display: flex;
+    justify-content: center;
+}
