@@ -12,7 +12,7 @@ def WeatherApp():
     city_condition = None
     city_temp_celsius = None
     city_temp_feels_like = None
-    
+    error_message = None
     load_dotenv()
     API_KEY = os.getenv("API_KEY")
 
@@ -22,7 +22,8 @@ def WeatherApp():
         response_crr_weather = requests.get(API_URL_CURR_WEATHER)
 
         if response_crr_weather.status_code != 200:
-            return "Request failed"
+            error_message = "Please enter a valid city name"
+            return render_template("WeatherApp.html", error_message=error_message)
 
         data_crr_weather = response_crr_weather.json()
         city_name = data_crr_weather['location']['name']

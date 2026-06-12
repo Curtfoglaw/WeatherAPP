@@ -3,9 +3,12 @@ body {
 }
 h1, h2 {
     color: chocolate;
+    font-family: 'Inter';
 }
 p {
     color: black;
+    font-family: 'Inter';
+
 }
 
 .inputBox {
@@ -15,4 +18,56 @@ p {
 .weatherHeader {
     display: flex;
     justify-content: center;
+}
+.weatherOutput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.errorOutput {
+    display: flex;
+    justify-content: center;
+}
+
+
+body.sunny {
+    background-image: url('/static/images/sunny.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+body.clear {
+    background-image: url('/static/images/clear.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+
+body.partly-cloudy {
+    background-image: url('/static/images/partly-cloudy.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+
+body.cloudy {
+    background-image: url('/static/images/cloudy.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+
+body.overcast {
+    background-image: url('/static/images/overcast.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+
+body.light-rain {
+    background-image: url('/static/images/light-rain.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
 }
