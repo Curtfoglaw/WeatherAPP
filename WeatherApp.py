@@ -55,7 +55,24 @@ def SignUp():
 
 @app.route("/Login", methods=["GET", "POST"])
 def Login():
+
+    if request.method == "POST":
+        userName = request.form.get("UserName")
+        password = request.form.get("Password")
+
+        user = Users.query.filter_by(username=userName).first()
+
+        if user and check_password_hash(user.password, password):
+            login_user(user)
+            return redirect(url_for("Dashboard"))
+        return render_template("Login.html", error_message="Could not find account with the given username/password")
+
     return render_template("Login.html")
+
+@app.route("/Dashboard", methods=["GET", "POST"])
+@login_required
+def Dashboard():
+    return render_template("Dashboard.html", user=current_user.username)
 
 @app.route("/WeatherApp", methods=["GET", "POST"])
 def WeatherApp():
