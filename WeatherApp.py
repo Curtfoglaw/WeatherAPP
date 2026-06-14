@@ -8,9 +8,11 @@ from dotenv import load_dotenv
 
 app = Flask(__name__)
 
+load_dotenv()
+
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///userInfo.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SECRET_KEY"] = "supersecretkey"
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -31,7 +33,29 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
+    return render_template("HomePage.html")
+
+@app.route("/SignUp", methods=["GET", "POST"])
+def SignUp():
+
+    if request.method == "POST":
+        userName = request.form.get("UserName")
+        password = request.form.get("Password")
+
+        if Users.query.filter_by(username=userName).first():
+            return render_template("SignUp.html", error_message="Username already taken, try another")
+
+        hashed_password = generate_password_hash(password)
+
+        newUser = Users(username=userName, password=hashed_password)
+        db.session.add(newUser)
+        db.session.commit()
+        return redirect(url_for("Login"))
     return render_template("SignUp.html")
+
+@app.route("/Login", methods=["GET", "POST"])
+def Login():
+    return render_template("Login.html")
 
 @app.route("/WeatherApp", methods=["GET", "POST"])
 def WeatherApp():
@@ -41,7 +65,7 @@ def WeatherApp():
     city_temp_celsius = None
     city_temp_feels_like = None
     error_message = None
-    load_dotenv()
+    
     API_KEY = os.getenv("API_KEY")
 
     if request.method == "POST":

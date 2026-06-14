@@ -42,7 +42,7 @@ input[type="text"]:focus {
     outline: none;
 }
 
-button[type="submit"] {
+.submitbtn {
     background-image: url('/static/images/searchIcon.png');
     background-color: transparent;
     border: none;
