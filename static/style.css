@@ -28,6 +28,7 @@ p {
 .errorOutput {
     display: flex;
     justify-content: center;
+    color: red;
 }
 
 input[type="text"] {
@@ -80,7 +81,7 @@ body.sunny {
 
 body.clear {
     background-image: url('/static/images/clear.jpg');
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat; 
 }

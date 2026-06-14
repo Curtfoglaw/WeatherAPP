@@ -6,16 +6,16 @@
 
     <link rel="stylesheet", href="{{url_for('static', filename='style.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
-    
+    <title>WeathePage</title>
+</head>
+<body class="{{city_condition|lower|replace(' ', '-')}}">
+
     <div class="weatherHeader">
         <h1>---CURTIS' WONDEROUS WEATHER WEBPAGE---</h1>
     </div>
 
-</head>
-<body class="{{city_condition|lower|replace(' ', '-')}}">
-
     <div class="inputBox">  
-        <form action="/", method="POST">
+        <form action="/WeatherApp", method="POST">
             <input type="text", name="city", placeholder="Enter a city" required>
             <button type="submit"></button>
         </form>
