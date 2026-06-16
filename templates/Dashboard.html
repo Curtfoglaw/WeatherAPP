@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet", href="{{url_for('static', filename='style.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
 
         <title>Dashboard</title>
     </head>
 
     <body>
-        <h1>--- Welcome {{user}} --- </h1>
+        <h1>--- Welcome {{user|capitalize}} --- </h1>
+        <ul>
+            <li><a href="/WeatherAppLoggedIn">Weather</a></li>
+            <li><a href="/">Logout</a></li>
+        </ul>
     </body>
 </html>

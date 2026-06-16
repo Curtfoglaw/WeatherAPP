@@ -15,10 +15,21 @@
     </div>
 
     <div class="inputBox">  
-        <form action="/WeatherApp" method="POST" class="weatherform">
+        <form action="/WeatherAppLoggedIn" method="POST" class="weatherform">
             <input type="text" name="city" placeholder="Enter a city" required>
             <button type="submit" class="submitbtnWeather"></button>
         </form>
+    </div>
+
+    <div class="WeatherHistory">
+        <h2> {{current_user_name}} saved weather </h2>
+            {% for entry in history %}
+                <div class="history">
+                    <p><strong>{{entry.city}}</strong></p>
+                    <p>{{entry.condition}}</p>
+                    <p>{{entry.temp_celsius}}, feels like: {{entry.temp_feels_like}}</p>
+                </div>
+            {%endfor%}
     </div>
 
     <div class="weatherOutput">

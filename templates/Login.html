@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet", href="{{url_for('static', filename='style.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
         <title>Login</title>
     </head>
     <body>
         <h1>---LOGIN---</h1>
 
-        <form action="/Login", method="POST">
-            <label for="UserName">Username:</label>
-            <input type="text", name="UserName", placeholder="Enter username">
-            <label for="Password">Password:</label>
-            <input type="text", name="Password", placeholder="Enter password">
-            <button type="submit">submit</button>
-        </form>
-
-        {% if error %}
-            <p>{{error}}</p>
-        {%endif%}
+        <div class="inputBox">
+            <form action="/Login" method="POST" class="loginform">
+                <input type="text" name="UserName" placeholder="Enter username">
+                <input type="password" name="Password" placeholder="Enter password">
+                <button type="submit" class="submitbtnLogin"></button>
+            </form>
+        </div>
+        <div class="errorOutput">
+            {% if error_message %}
+                <p>{{error_message}}</p>
+            {%endif%}
+        </div>
     </body>
 </html>

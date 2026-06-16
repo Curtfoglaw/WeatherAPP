@@ -7,18 +7,19 @@
     </head>
     <body>
         <h1>---CREATE AN ACCOUNT---</h1>
+            <div class="inputBox">
+                <form action="/SignUp" method="POST" class="signupform">
+                    <input type="text" name="UserName" placeholder="Enter a valid username" required>
+                    <input type="password" name="Password" placeholder="Enter a valid password" required>    
+                    <button type="submit" class="submitbtnSignup"></button>        
+                </form>
+            </div>
 
-        <form action="/SignUp", method="POST">
-            <label for="UserName">Username:</label>
-            <input type="text", name="UserName", placeholder="Enter a valid username" required>
-            <label for=""Password>Password:</label>
-            <input type="text", name="Password", placeholder="Enter a valid password" required>    
-            <button type="submit">Submit</button>        
-        </form>
-
-        {% if error_message %}
-            <p>{{error_message}}</p>
-        {%endif%}
+        <div class="errorOutput">
+            {% if error_message %}
+                <p>{{error_message}}</p>
+            {%endif%}
+        </div>
 
     </body>
 </html>
