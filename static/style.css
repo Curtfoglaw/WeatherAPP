@@ -9,7 +9,6 @@ h1, h2 {
 p {
     color: black;
     font-family: 'Inter';
-
 }
 
 .inputBox {
@@ -144,6 +143,26 @@ input[type="password"]:focus {
     width: 100%;
     box-sizing: border-box;
 }
+
+.WeatherOutputTable {
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-size: 1.1rem;
+}
+
+.WeatherOutputTable th,
+.WeatherOutputTable td {
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+}
+
+.WeatherOutputTable th {
+    background-color: #f4f4f4;
+    font-weight: 600;
+    width: 40%;
+}
+
 
 body.sunny {
     background-image: url('/static/images/sunny.jpg');

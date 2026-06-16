@@ -88,7 +88,20 @@ def Login():
 @app.route("/Dashboard", methods=["GET", "POST"])
 @login_required
 def Dashboard():
-    return render_template("Dashboard.html", user=current_user.username)
+    if request.method == "POST":
+        saved_city = request.form.get("city")
+        saved_condition = request.form.get("condition")
+        saved_temp = request.form.get("temp_celsius")
+        saved_temp_feels_like = request.form.get("temp_celsius_feels_like")
+
+        new_entry = WeatherHistory(user_id = current_user.id, city=saved_city, condition=saved_condition, temp_celsius=saved_temp, temp_feels_like=saved_temp_feels_like)
+        db.session.add(new_entry)
+        db.session.commit()
+        return redirect(url_for("WeatherAppLoggedIn"))
+
+    weather_history = WeatherHistory.query.filter_by(user_id = current_user.id).all()
+
+    return render_template("Dashboard.html", history=weather_history, user=current_user.username, weather_history=weather_history)
 
 @app.route("/Logout")
 @login_required
@@ -133,7 +146,7 @@ def WeatherAppLoggedIn():
     city_temp_celsius = None
     city_temp_feels_like = None
     error_message = None
-    weather_history = WeatherHistory.query.filter_by(user_id = current_user.id).all()
+    
 
     API_KEY = os.getenv("API_KEY")
 
@@ -144,7 +157,7 @@ def WeatherAppLoggedIn():
 
         if response_crr_weather.status_code != 200:
             error_message = "Please enter a valid city name"
-            return render_template("WeatherAppLoggedIn.html", error_message=error_message, history=weather_history) 
+            return render_template("WeatherAppLoggedIn.html", error_message=error_message) 
         
         data_crr_weather = response_crr_weather.json()
         city_name = data_crr_weather['location']['name']
@@ -152,15 +165,7 @@ def WeatherAppLoggedIn():
         city_temp_celsius = data_crr_weather['current']['temp_c']
         city_temp_feels_like = data_crr_weather['current']['feelslike_c']
 
-        new_entry = WeatherHistory(user_id = current_user.id, city = city_name, condition = city_condition, temp_celsius = city_temp_celsius, temp_feels_like = city_temp_feels_like)
-        db.session.add(new_entry)
-        db.session.commit()
-        weather_history = WeatherHistory.query.filter_by(user_id = current_user.id).all()
-
-
-
-
-    return render_template("WeatherAppLoggedIn.html", city_name=city_name, city_condition=city_condition, city_temp_celsius=city_temp_celsius, city_temp_feels_like=city_temp_feels_like, history=weather_history, current_user_name = current_user.username, error_message=error_message)
+    return render_template("WeatherAppLoggedIn.html", city_name=city_name, city_condition=city_condition, city_temp_celsius=city_temp_celsius, city_temp_feels_like=city_temp_feels_like, current_user_name = current_user.username, error_message=error_message)
         
 
     

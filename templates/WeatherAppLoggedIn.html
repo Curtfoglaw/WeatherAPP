@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
-    <title>WeathePage</title>
+    <title>WeatherPage</title>
 </head>
 <body class="{{city_condition|lower|replace(' ', '-')}}">
 
@@ -21,23 +21,33 @@
         </form>
     </div>
 
-    <div class="WeatherHistory">
-        <h2> {{current_user_name}} saved weather </h2>
-            {% for entry in history %}
-                <div class="history">
-                    <p><strong>{{entry.city}}</strong></p>
-                    <p>{{entry.condition}}</p>
-                    <p>{{entry.temp_celsius}}, feels like: {{entry.temp_feels_like}}</p>
-                </div>
-            {%endfor%}
-    </div>
 
     <div class="weatherOutput">
         {% if city_name %}
             <h2>Weather information for: {{city_name}}</h2>
-            <p>Condition: {{city_condition}}</p>
-            <p>Temperature: {{city_temp_celsius}}</p>
-            <p>Temperature feels like: {{city_temp_feels_like}}</p>
+
+            <form action="/Dashboard" method="POST">
+                <input type="hidden" name="city" value={{city_name}}>
+                <input type="hidden" name="condition" value={{city_condition}}>
+                <input type="hidden" name="temp_celsius" value={{city_temp_celsius}}>
+                <input type="hidden" name="temp_celsius_feels_like" value={{city_temp_feels_like}}>
+                <button type="submit" name="city_weather">+</button>
+            </form>
+
+            <table class="WeatherOutputTable">
+                <tr>
+                    <th>Condition</th>
+                    <td>{{city_condition}}</td>
+                </tr>
+                <tr>
+                    <th>Temperature</th>
+                    <td>{{city_temp_celsius}}</td>
+                </tr>
+                <tr>
+                    <th>Temperature feels like</th>
+                    <td>{{city_temp_feels_like}}</td>
+                </tr>
+            </table>
         {% endif %}
     </div>
 
