@@ -18,9 +18,11 @@
             <h2> {{current_user_name}} saved weather </h2>
                 {% for entry in weather_history %}
                     <div class="history">
-                        <p><strong>{{entry.city}}</strong></p>
-                        <p>{{entry.condition}}</p>
-                        <p>{{entry.temp_celsius}}, feels like: {{entry.temp_feels_like}}</p>
+                        <table>
+                            <p><strong>{{entry.city}}</strong></p>
+                            <p>{{entry.condition}}</p>
+                            <p>{{entry.temp_celsius}}, feels like: {{entry.temp_feels_like}}</p>
+                        </table>
                     </div>
                 {%endfor%}
         </div>

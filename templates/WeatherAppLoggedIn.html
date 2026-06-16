@@ -50,7 +50,13 @@
             </table>
         {% endif %}
     </div>
-
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p> {{message}} </p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <div class="errorOutput">
         {% if error_message %}
             <p> {{error_message}} </p>
