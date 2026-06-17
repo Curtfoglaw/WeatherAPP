@@ -90,20 +90,28 @@ def Login():
 def Dashboard():
 
     if request.method == "POST":
-        saved_city = request.form.get("city")
-        saved_condition = request.form.get("condition")
-        saved_temp = request.form.get("temp_celsius")
-        saved_temp_feels_like = request.form.get("temp_celsius_feels_like")
-        num_saved_weather = WeatherHistory.query.filter_by(user_id = current_user.id).count()
 
-        if num_saved_weather >= 5:
-            flash("Cannot add any more cities, limit reached (5)")
+        action = request.form.get("action")
+        if action == "add":
+            saved_city = request.form.get("city")
+            saved_condition = request.form.get("condition")
+            saved_temp = request.form.get("temp_celsius")
+            saved_temp_feels_like = request.form.get("temp_celsius_feels_like")
+            num_saved_weather = WeatherHistory.query.filter_by(user_id = current_user.id).count()
+
+            if num_saved_weather >= 5:
+                flash("Cannot add any more cities, limit reached (5)")
+                return redirect(url_for("WeatherAppLoggedIn"))
+
+            new_entry = WeatherHistory(user_id = current_user.id, city=saved_city, condition=saved_condition, temp_celsius=saved_temp, temp_feels_like=saved_temp_feels_like)
+            db.session.add(new_entry)
+            db.session.commit()
             return redirect(url_for("WeatherAppLoggedIn"))
-
-        new_entry = WeatherHistory(user_id = current_user.id, city=saved_city, condition=saved_condition, temp_celsius=saved_temp, temp_feels_like=saved_temp_feels_like)
-        db.session.add(new_entry)
-        db.session.commit()
-        return redirect(url_for("WeatherAppLoggedIn"))
+        elif action == "delete":
+            entry_id = request.form.get("weather_id")
+            WeatherHistory.query.filter_by(id=entry_id, user_id=current_user.id).delete()
+            db.session.commit()
+            return redirect(url_for("Dashboard"))
 
     weather_history = WeatherHistory.query.filter_by(user_id = current_user.id).all()
 

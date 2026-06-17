@@ -18,11 +18,16 @@
             <h2> {{current_user_name}} saved weather </h2>
                 {% for entry in weather_history %}
                     <div class="history">
-                        <table>
-                            <p><strong>{{entry.city}}</strong></p>
-                            <p>{{entry.condition}}</p>
-                            <p>{{entry.temp_celsius}}, feels like: {{entry.temp_feels_like}}</p>
-                        </table>
+                        <form action="/Dashboard" method="POST">
+                            <table>
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="weather_id" value={{entry.id}}>
+                                <p><strong>{{entry.city}}</strong></p>
+                                <p>{{entry.condition}}</p>
+                                <p>{{entry.temp_celsius}}, feels like: {{entry.temp_feels_like}}</p>
+                                <button typp="submit" name={{entry.city}}>-</button>
+                            </table>
+                        </form>
                     </div>
                 {%endfor%}
         </div>
