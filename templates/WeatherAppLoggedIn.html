@@ -27,6 +27,7 @@
             <h2>Weather information for: {{city_name}}</h2>
 
             <form action="/Dashboard" method="POST">
+                <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="city" value={{city_name}}>
                 <input type="hidden" name="condition" value={{city_condition}}>
                 <input type="hidden" name="temp_celsius" value={{city_temp_celsius}}>
