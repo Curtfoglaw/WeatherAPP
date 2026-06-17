@@ -163,6 +163,17 @@ input[type="password"]:focus {
     width: 40%;
 }
 
+.weatherhistorytable th,
+.weatherhistorytable td {
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+}
+
+.weatherhistorytable th {
+    background-color: #f4f4f4;
+    font-weight: 600;
+    width: 40%;
+}
 
 body.sunny {
     background-image: url('/static/images/sunny.jpg');

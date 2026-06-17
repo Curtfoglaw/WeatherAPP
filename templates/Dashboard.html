@@ -19,13 +19,26 @@
                 {% for entry in weather_history %}
                     <div class="history">
                         <form action="/Dashboard" method="POST">
-                            <table>
+                            <table class="weatherhistorytable">
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="weather_id" value={{entry.id}}>
-                                <p><strong>{{entry.city}}</strong></p>
-                                <p>{{entry.condition}}</p>
-                                <p>{{entry.temp_celsius}}, feels like: {{entry.temp_feels_like}}</p>
-                                <button typp="submit" name={{entry.city}}>-</button>
+                                <tr>
+                                    <th>City</th>
+                                    <td>{{entry.city}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Condition</th>
+                                    <td>{{entry.condition}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Temperature</th>
+                                    <td>{{entry.temp_celsius}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Temperature feels like</th>
+                                    <td>{{entry.temp_feels_like}}</td>
+                                </tr>
+                                <button type="submit" name={{entry.city}}>-</button>
                             </table>
                         </form>
                     </div>
