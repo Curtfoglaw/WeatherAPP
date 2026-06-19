@@ -94,21 +94,32 @@ def Dashboard():
     API_KEY = os.getenv("API_KEY")
 
     if request.method == "POST":
-
+        
         action = request.form.get("action")
-
+        
         if action == "add":
+
             saved_city = request.form.get("city")
+            saved_condition = request.form.get("condition")
+            saved_temp = request.form.get("temp_celsius")
+            saved_temp_feels_like = request.form.get("temp_celsius_feels_like")
+
+            if WeatherHistory.query.filter_by(city=saved_city, user_id=current_user.id).count() >= 1:
+                flash(f"Already saved weather for {saved_city}")
+                return redirect(url_for("WeatherAppLoggedIn", city_name=saved_city, city_condition=saved_condition, city_temp_celsius=saved_temp, city_temp_feels_like=saved_temp_feels_like, current_user_name = current_user.username))
+            
             num_saved_weather = WeatherHistory.query.filter_by(user_id = current_user.id).count()
 
             if num_saved_weather >= 5:
                 flash("Cannot add any more cities, limit reached (5)")
-                return redirect(url_for("WeatherAppLoggedIn"))
+                return redirect(url_for("WeatherAppLoggedIn", city_name=saved_city, city_condition=saved_condition, city_temp_celsius=saved_temp, city_temp_feels_like=saved_temp_feels_like, current_user_name = current_user.username))
 
             new_entry = WeatherHistory(user_id = current_user.id, city=saved_city)
             db.session.add(new_entry)
             db.session.commit()
-            return redirect(url_for("WeatherAppLoggedIn"))
+            
+            return redirect(url_for("WeatherAppLoggedIn", city_name=saved_city, city_condition=saved_condition, city_temp_celsius=saved_temp, city_temp_feels_like=saved_temp_feels_like, current_user_name = current_user.username))
+
         
         elif action == "delete":
             entry_id = request.form.get("entry_id")
@@ -131,7 +142,7 @@ def Dashboard():
                 "user_id": data.user_id,
                 "city": data.city,
                 "city_condition": response_json['current']['condition']['text'],
-                "city_temp_celisus": response_json['current']['temp_c'],
+                "city_temp_celsius": response_json['current']['temp_c'],
                 "city_temp_celsius_feels_like": response_json['current']['feelslike_c']
             })
 
@@ -141,7 +152,7 @@ def Dashboard():
                 "user_id": data.user_id,
                 "city": data.city,
                 "city_condition": "N/A",
-                "city_temp_celisus": "N/A",
+                "city_temp_celsius": "N/A",
                 "city_temp_celsius_feels_like": "N/A"
             })
 
@@ -170,7 +181,7 @@ def WeatherApp():
         response_crr_weather = requests.get(API_URL_CURR_WEATHER)
 
         if response_crr_weather.status_code != 200:
-            error_message = "Please enter a valid city name"
+            error_message = f"Error: {response_crr_weather.status_code}"
             return render_template("WeatherApp.html", error_message=error_message)
 
         data_crr_weather = response_crr_weather.json()
@@ -191,7 +202,6 @@ def WeatherAppLoggedIn():
     city_temp_feels_like = None
     error_message = None
     
-
     API_KEY = os.getenv("API_KEY")
 
     if request.method == "POST":
@@ -200,7 +210,7 @@ def WeatherAppLoggedIn():
         response_crr_weather = requests.get(API_URL_CURR_WEATHER)
 
         if response_crr_weather.status_code != 200:
-            error_message = "Please enter a valid city name"
+            error_message = f"Error: {response_crr_weather.status_code}"
             return render_template("WeatherAppLoggedIn.html", error_message=error_message) 
         
         data_crr_weather = response_crr_weather.json()
@@ -209,9 +219,13 @@ def WeatherAppLoggedIn():
         city_temp_celsius = data_crr_weather['current']['temp_c']
         city_temp_feels_like = data_crr_weather['current']['feelslike_c']
 
+    else:
+        city_name = request.args.get("city_name")
+        city_condition = request.args.get("city_condition")
+        city_temp_celsius = request.args.get("city_temp_celsius")
+        city_temp_feels_like = request.args.get("city_temp_feels_like")
+
     return render_template("WeatherAppLoggedIn.html", city_name=city_name, city_condition=city_condition, city_temp_celsius=city_temp_celsius, city_temp_feels_like=city_temp_feels_like, current_user_name = current_user.username, error_message=error_message)
         
-
-    
 if __name__ == "__main__":
     app.run(debug=True)
