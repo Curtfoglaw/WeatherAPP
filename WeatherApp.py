@@ -90,10 +90,13 @@ def Login():
 @app.route("/Dashboard", methods=["GET", "POST"])
 @login_required
 def Dashboard():
+
     API_KEY = os.getenv("API_KEY")
+
     if request.method == "POST":
 
         action = request.form.get("action")
+
         if action == "add":
             saved_city = request.form.get("city")
             num_saved_weather = WeatherHistory.query.filter_by(user_id = current_user.id).count()
@@ -106,14 +109,16 @@ def Dashboard():
             db.session.add(new_entry)
             db.session.commit()
             return redirect(url_for("WeatherAppLoggedIn"))
+        
         elif action == "delete":
-            entry_id = request.form.get("weather_id")
+            entry_id = request.form.get("entry_id")
             WeatherHistory.query.filter_by(id=entry_id, user_id=current_user.id).delete()
             db.session.commit()
             return redirect(url_for("Dashboard"))
 
     weather_history = WeatherHistory.query.filter_by(user_id = current_user.id).all()
     weather_data = []
+
     for data in weather_history:
         city = data.city
         API_URL_CURR_WEATHER= f"https://api.weatherapi.com/v1/current.json?key={API_KEY}&q={city}"
@@ -129,6 +134,7 @@ def Dashboard():
                 "city_temp_celisus": response_json['current']['temp_c'],
                 "city_temp_celsius_feels_like": response_json['current']['feelslike_c']
             })
+
         else:
             weather_data.append({
                 "entry_id": data.id,
@@ -138,6 +144,7 @@ def Dashboard():
                 "city_temp_celisus": "N/A",
                 "city_temp_celsius_feels_like": "N/A"
             })
+
     return render_template("Dashboard.html", user=current_user.username, weather_history=weather_data)
 
 @app.route("/Logout")

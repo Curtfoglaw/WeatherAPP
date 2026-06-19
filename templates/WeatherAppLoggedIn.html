@@ -28,10 +28,10 @@
 
             <form action="/Dashboard" method="POST">
                 <input type="hidden" name="action" value="add">
-                <input type="hidden" name="city" value={{city_name}}>
-                <input type="hidden" name="condition" value={{city_condition}}>
-                <input type="hidden" name="temp_celsius" value={{city_temp_celsius}}>
-                <input type="hidden" name="temp_celsius_feels_like" value={{city_temp_feels_like}}>
+                <input type="hidden" name="city" value="{{city_name}}">
+                <input type="hidden" name="condition" value="{{city_condition}}">
+                <input type="hidden" name="temp_celsius" value="{{city_temp_celsius}}">
+                <input type="hidden" name="temp_celsius_feels_like" value="{{city_temp_feels_like}}">
                 <button type="submit" name="city_weather">+</button>
             </form>
 
@@ -55,6 +55,9 @@
             </table>
         {% endif %}
     </div>
+    <ul>
+        <li><a href="/Dashboard">Back to Dashboard</a></li>
+    </ul>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}

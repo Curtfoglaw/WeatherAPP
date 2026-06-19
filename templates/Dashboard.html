@@ -21,7 +21,7 @@
                         <form action="/Dashboard" method="POST">
                             <table class="weatherhistorytable">
                                 <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="weather_id" value={{entry.id}}>
+                                <input type="hidden" name="entry_id" value="{{entry['entry_id']}}">
                                 <tr>
                                     <th>City</th>
                                     <td>{{entry["city"]}}</td>
@@ -38,7 +38,7 @@
                                     <th>Temperature feels like</th>
                                     <td>{{entry["city_temp_celsius_feels_like"]}}</td>
                                 </tr>
-                                <button type="submit" name={{entry.city}}>-</button>
+                                <button type="submit" name="weather_id">-</button>
                             </table>
                         </form>
                     </div>
