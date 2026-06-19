@@ -144,36 +144,37 @@ input[type="password"]:focus {
     box-sizing: border-box;
 }
 
-.WeatherOutputTable {
-    width: 60%;
-    margin: 20px auto;
-    border-collapse: collapse;
+.WeatherOutputTable,
+.weatherhistorytable {
+    width: 70%;
+    margin: 25px auto;
+    border-collapse: separate;
+    border-spacing: 0;
     font-size: 1.1rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .WeatherOutputTable th,
-.WeatherOutputTable td {
-    border: 1px solid #ccc;
-    padding: 10px 15px;
-}
-
-.WeatherOutputTable th {
-    background-color: #f4f4f4;
-    font-weight: 600;
-    width: 40%;
-}
-
-.weatherhistorytable th,
-.weatherhistorytable td {
-    border: 1px solid #ccc;
-    padding: 10px 15px;
-}
-
 .weatherhistorytable th {
-    background-color: #f4f4f4;
+    background: #f7f7f7;
     font-weight: 600;
-    width: 40%;
+    padding: 12px 18px;
+    text-align: left;
 }
+
+.WeatherOutputTable td,
+.weatherhistorytable td {
+    padding: 12px 18px;
+    background: #fff;
+}
+
+.WeatherOutputTable tr:not(:last-child) td,
+.weatherhistorytable tr:not(:last-child) td {
+    border-bottom: 1px solid #e0e0e0;
+}
+
 
 body.sunny {
     background-image: url('/static/images/sunny.jpg');

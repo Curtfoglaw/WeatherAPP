@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import requests
 import os
 from dotenv import load_dotenv
+from isValidPassword import password_checker
 
 
 #configure imports for database, environment variables, login management and Flask
@@ -57,7 +58,11 @@ def SignUp():
 
         if Users.query.filter_by(username=userName).first():
             return render_template("SignUp.html", error_message="Username already taken, try another")
+        
+        password_check = password_checker(password)
 
+        if password_check != "Good password!":
+            return render_template("SignUp.html", error_message=password_check)
         hashed_password = generate_password_hash(password)
 
         newUser = Users(username=userName, password=hashed_password)
@@ -133,9 +138,6 @@ def Dashboard():
                 "city_temp_celisus": "N/A",
                 "city_temp_celsius_feels_like": "N/A"
             })
-
-
-
     return render_template("Dashboard.html", user=current_user.username, weather_history=weather_data)
 
 @app.route("/Logout")
