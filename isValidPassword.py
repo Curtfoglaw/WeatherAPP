@@ -1,3 +1,7 @@
+#function for cecking passwords
+
+#remember to add more functionality
+
 def password_checker(password):
     
     special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '?', '/', ';', ':', '{', '}', '_', '-']
