@@ -24,19 +24,19 @@
                                 <input type="hidden" name="weather_id" value={{entry.id}}>
                                 <tr>
                                     <th>City</th>
-                                    <td>{{entry.city}}</td>
+                                    <td>{{entry["city"]}}</td>
                                 </tr>
                                 <tr>
                                     <th>Condition</th>
-                                    <td>{{entry.condition}}</td>
+                                    <td>{{entry["city_condition"]}}</td>
                                 </tr>
                                 <tr>
                                     <th>Temperature</th>
-                                    <td>{{entry.temp_celsius}}</td>
+                                    <td>{{entry["city_temp_celisus"]}}</td>
                                 </tr>
                                 <tr>
                                     <th>Temperature feels like</th>
-                                    <td>{{entry.temp_feels_like}}</td>
+                                    <td>{{entry["city_temp_celsius_feels_like"]}}</td>
                                 </tr>
                                 <button type="submit" name={{entry.city}}>-</button>
                             </table>

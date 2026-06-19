@@ -33,9 +33,6 @@ class WeatherHistory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     city = db.Column(db.String(250))
-    condition = db.Column(db.String(250))
-    temp_celsius = db.Column(db.Float)
-    temp_feels_like = db.Column(db.Float)
 
 with app.app_context():
     db.create_all()
@@ -88,22 +85,19 @@ def Login():
 @app.route("/Dashboard", methods=["GET", "POST"])
 @login_required
 def Dashboard():
-
+    API_KEY = os.getenv("API_KEY")
     if request.method == "POST":
 
         action = request.form.get("action")
         if action == "add":
             saved_city = request.form.get("city")
-            saved_condition = request.form.get("condition")
-            saved_temp = request.form.get("temp_celsius")
-            saved_temp_feels_like = request.form.get("temp_celsius_feels_like")
             num_saved_weather = WeatherHistory.query.filter_by(user_id = current_user.id).count()
 
             if num_saved_weather >= 5:
                 flash("Cannot add any more cities, limit reached (5)")
                 return redirect(url_for("WeatherAppLoggedIn"))
 
-            new_entry = WeatherHistory(user_id = current_user.id, city=saved_city, condition=saved_condition, temp_celsius=saved_temp, temp_feels_like=saved_temp_feels_like)
+            new_entry = WeatherHistory(user_id = current_user.id, city=saved_city)
             db.session.add(new_entry)
             db.session.commit()
             return redirect(url_for("WeatherAppLoggedIn"))
@@ -114,8 +108,35 @@ def Dashboard():
             return redirect(url_for("Dashboard"))
 
     weather_history = WeatherHistory.query.filter_by(user_id = current_user.id).all()
+    weather_data = []
+    for data in weather_history:
+        city = data.city
+        API_URL_CURR_WEATHER= f"https://api.weatherapi.com/v1/current.json?key={API_KEY}&q={city}"
+        response = requests.get(API_URL_CURR_WEATHER)
 
-    return render_template("Dashboard.html", history=weather_history, user=current_user.username, weather_history=weather_history)
+        if response.status_code == 200:
+            response_json = response.json()
+            weather_data.append({
+                "entry_id": data.id,
+                "user_id": data.user_id,
+                "city": data.city,
+                "city_condition": response_json['current']['condition']['text'],
+                "city_temp_celisus": response_json['current']['temp_c'],
+                "city_temp_celsius_feels_like": response_json['current']['feelslike_c']
+            })
+        else:
+            weather_data.append({
+                "entry_id": data.id,
+                "user_id": data.user_id,
+                "city": data.city,
+                "city_condition": "N/A",
+                "city_temp_celisus": "N/A",
+                "city_temp_celsius_feels_like": "N/A"
+            })
+
+
+
+    return render_template("Dashboard.html", user=current_user.username, weather_history=weather_data)
 
 @app.route("/Logout")
 @login_required
