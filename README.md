@@ -1,2 +1,2 @@
 # WeatherAPP
-Making a full stack weather app using Python. This task serves as a way to develop skills using APIs and combining a front-end with a Python backend
+A full‑stack Flask weather application that lets users search for real‑time weather data, store search history, and access their information across sessions. Built with Python, Flask, SQLAlchemy, and deployed using Gunicorn on Render.
