@@ -144,6 +144,23 @@ input[type="password"]:focus {
     box-sizing: border-box;
 }
 
+.empty_msg p {
+    text-align: center;
+    font-size: large;
+    font-weight: 100;
+}
+
+.weathersearch {
+    position: relative;
+}
+.addhistory {
+    position: absolute;
+    border-radius: 8px;
+    right: 100px;
+    top: 240px;
+    border-width: 2px;
+}
+
 .WeatherOutputTable,
 .weatherhistorytable {
     width: 70%;
@@ -168,11 +185,43 @@ input[type="password"]:focus {
 .weatherhistorytable td {
     padding: 12px 18px;
     background: #fff;
+    width: 50%;
 }
 
 .WeatherOutputTable tr:not(:last-child) td,
 .weatherhistorytable tr:not(:last-child) td {
     border-bottom: 1px solid #e0e0e0;
+}
+
+.history {
+    position: relative;
+}
+.deletehistory {
+    position: absolute;
+    border-radius: 8px;
+    top: 10px;
+    right: 100px;
+    border-width: 2px;
+}
+
+.navbar {
+    display: flex;
+    gap: 100px;
+    justify-content: center;
+    margin-top: 250px;
+}
+
+.navbar a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #333;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.navbar a:hover {
+    background: #f0f0f0;
 }
 
 

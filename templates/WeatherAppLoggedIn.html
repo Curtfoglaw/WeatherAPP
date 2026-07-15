@@ -11,7 +11,7 @@
 <body class="{{city_condition|lower|replace(' ', '-')}}">
 
     <div class="weatherHeader">
-        <h1>---CURTIS' WONDEROUS WEATHER WEBPAGE---</h1>
+        <h1>THE WONDEROUS WEATHER WEBPAGE</h1>
     </div>
 
     <div class="inputBox">  
@@ -21,19 +21,34 @@
         </form>
     </div>
 
-
     <div class="weatherOutput">
         {% if city_name %}
             <h2>Weather information for: {{city_name}}</h2>
+            
 
+            <div class="errorOutput">
+                {% if error_message %}
+                    <p> {{error_message}} </p>
+                {%endif%}
+            </div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p> {{message}} </p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
             <form action="/Dashboard" method="POST">
                 <input type="hidden" name="action" value="add">
-                <input type="hidden" name="city" value="{{city_name}}">
-                <input type="hidden" name="condition" value="{{city_condition}}">
-                <input type="hidden" name="temp_celsius" value="{{city_temp_celsius}}">
-                <input type="hidden" name="temp_celsius_feels_like" value="{{city_temp_feels_like}}">
+                <div class="weathersearch">
+                    <input type="hidden" name="city" value="{{city_name}}">
+                    <input type="hidden" name="condition" value="{{city_condition}}">
+                    <input type="hidden" name="temp_celsius" value="{{city_temp_celsius}}">
+                    <input type="hidden" name="temp_celsius_feels_like" value="{{city_temp_feels_like}}">
+                </div>
                 
-                <button type="submit" name="city_weather">+</button>
+                <button type="submit" name="city_weather" class="addhistory">+</button>
             </form>
 
             <table class="WeatherOutputTable">
@@ -56,21 +71,9 @@
             </table>
         {% endif %}
     </div>
-    <ul>
-        <li><a href="/Dashboard">Back to Dashboard</a></li>
-    </ul>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <p> {{message}} </p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    <div class="errorOutput">
-        {% if error_message %}
-            <p> {{error_message}} </p>
-        {%endif%}
-    </div>
+    <nav class="navbar">
+        <a href="/Dashboard">Back to Dashboard</a>
+    </nav>
 
 </body>
 </html> 

@@ -6,19 +6,21 @@
 
         <title>Dashboard</title>
     </head>
-
     <body>
-        <h1>--- Welcome {{user|capitalize}} --- </h1>
-        <ul>
-            <li><a href="/WeatherAppLoggedIn">Weather</a></li>
-            <li><a href="/">Logout</a></li>
-        </ul>
+        <h1>Welcome {{user|capitalize}}</h1>
 
         <div class="WeatherHistory">
             <h2> {{current_user_name}} saved weather </h2>
+                <div class="empty_msg">
+                    {% if empty_msg %}
+                        <p>{{empty_msg}} </p>
+                    {% endif %}
+                </div>
+    
                 {% for entry in weather_history %}
                     <div class="history">
                         <form action="/Dashboard" method="POST">
+                            <button type="submit" name="weather_id" class="deletehistory">-</button>
                             <table class="weatherhistorytable">
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="entry_id" value="{{entry['entry_id']}}">
@@ -38,11 +40,16 @@
                                     <th>Temperature feels like</th>
                                     <td>{{entry["city_temp_celsius_feels_like"]}}</td>
                                 </tr>
-                                <button type="submit" name="weather_id">-</button>
                             </table>
                         </form>
                     </div>
                 {%endfor%}
         </div>
+
+        <nav class="navbar">
+            <a href="/WeatherAppLoggedIn">Weather</a>
+            <a href="/">Logout</a>
+            <a href="/SignUp">Signup</a>
+        </nav>
     </body>
 </html>

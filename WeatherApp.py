@@ -90,7 +90,8 @@ def Login():
 @app.route("/Dashboard", methods=["GET", "POST"])
 @login_required
 def Dashboard():
-
+    
+    empty_msg=None
     API_KEY = os.getenv("API_KEY")
 
     if request.method == "POST":
@@ -156,7 +157,10 @@ def Dashboard():
                 "city_temp_celsius_feels_like": "N/A"
             })
 
-    return render_template("Dashboard.html", user=current_user.username, weather_history=weather_data)
+    if len(weather_history) == 0:
+        empty_msg = "Looks like you don't have any saved weather. Try searching for some with the weather link below:"
+
+    return render_template("Dashboard.html", user=current_user.username, weather_history=weather_data, empty_msg=empty_msg)
 
 @app.route("/Logout")
 @login_required
@@ -228,4 +232,4 @@ def WeatherAppLoggedIn():
     return render_template("WeatherAppLoggedIn.html", city_name=city_name, city_condition=city_condition, city_temp_celsius=city_temp_celsius, city_temp_feels_like=city_temp_feels_like, current_user_name = current_user.username, error_message=error_message)
         
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
