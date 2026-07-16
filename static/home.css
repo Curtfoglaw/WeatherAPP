@@ -1,6 +1,14 @@
 body {
-    background: linear-gradient(180deg, #6ec6ff 0%, #4fa3ff 50%, #2d6bba 100%);
-    image-rendering: pixelated;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    background: linear-gradient(#6ec6ff, #4fa3ff, #2d6bba);
+}
+
+p {
+    text-align: center;
 }
 .homepage-nav {
     display:flex;
@@ -17,10 +25,12 @@ body {
     padding: 10px 18px;
     border-radius: 8px;
     transition: 0.2s ease;
+    margin-bottom: 200px;
+    margin-top: 100px;
 }
 
 .homepage-nav a:hover {
-    background: burlywood;
+    background: rgba(255, 255, 255, 1);
 }
 
 body {
@@ -29,7 +39,7 @@ body {
 
 .heading {
     text-align: center;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
 }
 
 .randomquote {
@@ -37,16 +47,19 @@ body {
     font-size: 1rem;
     font-weight: 700;
     color: #ffeb3b;
-    text-shadow: rotate(-12deg);
-    display: inline-block;
+    text-shadow: rotate(-10deg);
     margin-top: 10px;
     animation: splashbounce 1.5s ease-in-out infinite;
-    margin-top: 100px;
-    margin-bottom: 40px;
+    margin-top: 80px;
     margin-left: 30px;
 }
 @keyframes splashbounce {
-    0% {transform: rotate(-12deg) scale(1);}
-    50% {transform: rotate(-12deg) scale(1.08);}
-    100% {transform: rotate(-12deg) scale(1);}
+    0% {transform: rotate(-10deg) scale(1);}
+    50% {transform: rotate(-10deg) scale(1.08);}
+    100% {transform: rotate(-10deg) scale(1);}
+}
+
+.introduction {
+    text-align: center;
+    margin-top: 80px;
 }

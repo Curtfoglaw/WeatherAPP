@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
-        <title>Login</title>
-    </head>
-    <body>
-        <h1>LOGIN</h1>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
+    <title>Login</title>
+</head>
 
-        <div class="inputBox">
-            <form action="/Login" method="POST" class="loginform">
-                <input type="text" name="UserName" placeholder="Enter username">
-                <input type="password" name="Password" placeholder="Enter password">
-                <button type="submit" class="submitbtnLogin"></button>
-            </form>
-        </div>
-        <div class="errorOutput">
-            {% if error_message %}
-                <p>{{error_message}}</p>
-            {%endif%}
-        </div>
-    </body>
+<body>
+
+    <div class="login-container">
+        <h1 class="login-title">Login</h1>
+
+        <form action="/Login" method="POST" class="login-form">
+            <input type="text" name="UserName" placeholder="Enter username" required>
+            <input type="password" name="Password" placeholder="Enter password" required>
+            <button type="submit" class="submit-login-btn">Login</button>
+        </form>
+
+        {% if error_message %}
+        <p class="login-error">{{ error_message }}</p>
+        {% endif %}
+    </div>
+
+</body>
 </html>

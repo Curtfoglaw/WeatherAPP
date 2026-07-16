@@ -1,40 +1,37 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='weathersearch.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
-    <title>WeathePage</title>
+    <title>Weather Search</title>
 </head>
-<body class="{{city_condition|lower|replace(' ', '-')}}">
 
-    <div class="weatherHeader">
-        <h1>THE WONDEROUS WEATHER WEBPAGE</h1>
-    </div>
+<body class="{{ city_condition|lower|replace(' ', '-') }}">
 
-    <div class="inputBox">  
-        <form action="/WeatherApp" method="POST" class="weatherform">
+    <div class="weather-container">
+
+        <h1 class="page-title">Curtis' Weather App</h1>
+
+        <form action="/WeatherApp" method="POST" class="weather-form">
             <input type="text" name="city" placeholder="Enter a city" required>
-            <button type="submit" class="submitbtnWeather"></button>
+            <button type="submit" class="submit-weather-btn">Search</button>
         </form>
-    </div>
 
-    <div class="weatherOutput">
         {% if city_name %}
-            <h2>Weather information for: {{city_name}}</h2>
-            <p>Condition: {{city_condition}}</p>
-            <p>Temperature: {{city_temp_celsius}}</p>
-            <p>Temperature feels like: {{city_temp_feels_like}}</p>
+        <div class="weather-output">
+            <h2>{{ city_name }}</h2>
+            <p>Condition: {{ city_condition }}</p>
+            <p>Temperature: {{ city_temp_celsius }}°C</p>
+            <p>Feels like: {{ city_temp_feels_like }}°C</p>
+        </div>
         {% endif %}
-    </div>
 
-    <div class="errorOutput">
         {% if error_message %}
-            <p> {{error_message}} </p>
-        {%endif%}
+        <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+
     </div>
 
 </body>
-</html> 
+</html>

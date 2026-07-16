@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet", href="{{url_for('static', filename='style.css')}}">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
-        <title>SignUp</title>
-    </head>
-    <body>
-        <h1>CREATE AN ACCOUNT</h1>
-            <div class="inputBox">
-                <form action="/SignUp" method="POST" class="signupform">
-                    <input type="text" name="UserName" placeholder="Enter a valid username" required>
-                    <input type="password" name="Password" placeholder="Enter a valid password" required>    
-                    <button type="submit" class="submitbtnSignup"></button>        
-                </form>
-            </div>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='signup.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
+    <title>Sign Up</title>
+</head>
 
-        <div class="errorOutput">
-            {% if error_message %}
-                <p>{{error_message}}</p>
-            {%endif%}
-        </div>
+<body>
 
-    </body>
+    <div class="signup-container">
+        <h1 class="signup-title">Create an Account</h1>
+
+        <form action="/SignUp" method="POST" class="signup-form">
+            <input type="text" name="UserName" placeholder="Enter a valid username" required>
+            <input type="password" name="Password" placeholder="Enter a valid password" required>
+            <button type="submit" class="submit-signup-btn">Sign Up</button>
+        </form>
+
+        {% if error_message %}
+        <p class="signup-error">{{ error_message }}</p>
+        {% endif %}
+    </div>
+
+</body>
 </html>
