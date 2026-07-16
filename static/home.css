@@ -1,3 +1,7 @@
+body {
+    background: linear-gradient(180deg, #6ec6ff 0%, #4fa3ff 50%, #2d6bba 100%);
+    image-rendering: pixelated;
+}
 .homepage-nav {
     display:flex;
     justify-content: center;
@@ -6,13 +10,43 @@
 }
 
 .homepage-nav a {
+    text-decoration: none;
     font-size: 1.3rem;
     font-weight: 600;
-    color: black;
+    color: #333;
     padding: 10px 18px;
     border-radius: 8px;
+    transition: 0.2s ease;
 }
 
 .homepage-nav a:hover {
     background: burlywood;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 200px;
+}
+
+.randomquote {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffeb3b;
+    text-shadow: rotate(-12deg);
+    display: inline-block;
+    margin-top: 10px;
+    animation: splashbounce 1.5s ease-in-out infinite;
+    margin-top: 100px;
+    margin-bottom: 40px;
+    margin-left: 30px;
+}
+@keyframes splashbounce {
+    0% {transform: rotate(-12deg) scale(1);}
+    50% {transform: rotate(-12deg) scale(1.08);}
+    100% {transform: rotate(-12deg) scale(1);}
 }

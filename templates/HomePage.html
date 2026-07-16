@@ -2,19 +2,19 @@
 
 <html lang="en">
     <head>
-        <link rel="stylesheet", href="{{url_for('static', filename='style.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='home.css')}}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
-
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
         <title>Homepage</title>
     </head>
     <body>
-        <h1>HOME PAGE</h1>
-        <nav>
-            <ul>
-                <li><a href="/WeatherApp">---WeatherApp---</a></li>
-                <li><a href="/Login">---Login---</a></li>
-                <li><a href="/SignUp">---Signup---</a></li>                
-            </ul>
+        <p class="randomquote">{{quote}}</p>
+        <h1 class="heading">Curtis' weather app</h1>
+        <nav class="homepage-nav">
+            <a href="/WeatherApp">WeatherApp</a>
+            <a href="/Login">Login</a>
+            <a href="/SignUp">Signup</a>
         </nav>
     </body>
 </html>

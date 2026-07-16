@@ -6,10 +6,44 @@ import requests
 import os
 from dotenv import load_dotenv
 from isValidPassword import password_checker
-
+import random
 
 #configure imports for database, environment variables, login management and Flask
 app = Flask(__name__)
+
+weather_quotes = [
+    "Clouds are just sky thoughts.",
+    "Rain: nature’s way of washing the world.",
+    "Sunshine is free DLC.",
+    "Wind: the original fast travel.",
+    "Forecast: vibes.",
+    "Today’s weather is sponsored by the sky.",
+    "Umbrellas: portable roof technology.",
+    "If it’s raining, the sky is crying happy tears.",
+    "Clear skies, clear mind.",
+    "Storms are just dramatic clouds.",
+    "Temperature: somewhere between ‘meh’ and ‘nice.’",
+    "Weather update: it exists.",
+    "Clouds: floating mood boards.",
+    "Sunlight is just sky glitter.",
+    "Wind level: chaotic neutral.",
+    "Rain is just sky hydration.",
+    "Fog: the sky’s mysterious phase.",
+    "Weather fact: it’s happening right now.",
+    "Clouds: the sky’s comfy pillows.",
+    "Sun: the world’s biggest lamp.",
+    "Storm incoming — dramatic music intensifies.",
+    "Weather tip: go outside sometimes.",
+    "Rainy days = bonus cozy points.",
+    "Wind: nature’s hair stylist.",
+    "Cloudy with a chance of meatballs.",
+    "Sky status: doing its best.",
+    "Forecast: unpredictable, like life.",
+    "Sunshine: the sky smiling at you.",
+    "Rain: free sound effects.",
+    "Weather mood: loading..."
+]
+
 
 load_dotenv()
 
@@ -47,7 +81,8 @@ def load_user(user_id):
 #routing for different pages + API imports
 @app.route("/")
 def index():
-    return render_template("HomePage.html")
+    random_quote = random.choice(weather_quotes)
+    return render_template("HomePage.html", quote=random_quote)
 
 @app.route("/SignUp", methods=["GET", "POST"])
 def SignUp():
