@@ -1,0 +1,18 @@
+.homepage-nav {
+    display:flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.homepage-nav a {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: black;
+    padding: 10px 18px;
+    border-radius: 8px;
+}
+
+.homepage-nav a:hover {
+    background: burlywood;
+}
