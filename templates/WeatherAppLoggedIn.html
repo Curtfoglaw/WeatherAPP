@@ -1,79 +1,84 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
     <link rel="stylesheet" href="{{url_for('static', filename='weathersearch.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
     <title>WeatherPage</title>
 </head>
-<body class="{{city_condition|lower|replace(' ', '-')}}">
 
-    <div class="weatherHeader">
-        <h1>THE WONDEROUS WEATHER WEBPAGE</h1>
-    </div>
+<body>
 
-    <div class="inputBox">  
-        <form action="/WeatherAppLoggedIn" method="POST" class="weatherform">
+    <div class="weather-container">
+
+        <h1 class="page-title">THE WONDEROUS WEATHER WEBPAGE</h1>
+
+        <!-- Search Form -->
+        <form action="/WeatherAppLoggedIn" method="POST" class="weather-form">
             <input type="text" name="city" placeholder="Enter a city" required>
-            <button type="submit" class="submitbtnWeather"></button>
+            <button type="submit" class="submit-weather-btn">Search</button>
         </form>
-    </div>
 
-    <div class="weatherOutput">
+        <!-- Error Message -->
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="error-message">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Weather Output -->
         {% if city_name %}
-            <h2>Weather information for: {{city_name}}</h2>
-            
+        <div class="weather-output">
 
-            <div class="errorOutput">
-                {% if error_message %}
-                    <p> {{error_message}} </p>
-                {%endif%}
-            </div>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <p> {{message}} </p>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            
-            <form action="/Dashboard" method="POST">
-                <input type="hidden" name="action" value="add">
-                <div class="weathersearch">
-                    <input type="hidden" name="city" value="{{city_name}}">
-                    <input type="hidden" name="condition" value="{{city_condition}}">
-                    <input type="hidden" name="temp_celsius" value="{{city_temp_celsius}}">
-                    <input type="hidden" name="temp_celsius_feels_like" value="{{city_temp_feels_like}}">
-                </div>
-                
-                <button type="submit" name="city_weather" class="addhistory">+</button>
-            </form>
+            <h2>Weather information for: {{ city_name }}</h2>
 
             <table class="WeatherOutputTable">
                 <tr>
                     <th>City</th>
-                    <td>{{city_name}}</td>
+                    <td>{{ city_name }}</td>
                 </tr>
                 <tr>
                     <th>Condition</th>
-                    <td>{{city_condition}}</td>
+                    <td>{{ city_condition }}</td>
                 </tr>
                 <tr>
                     <th>Temperature</th>
-                    <td>{{city_temp_celsius}}</td>
+                    <td>{{ city_temp_celsius }}</td>
                 </tr>
                 <tr>
-                    <th>Temperature feels like</th>
-                    <td>{{city_temp_feels_like}}</td>
+                    <th>Feels Like</th>
+                    <td>{{ city_temp_feels_like }}</td>
                 </tr>
             </table>
+
+            <!-- Add to Dashboard -->
+            <form action="/Dashboard" method="POST">
+                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="city" value="{{ city_name }}">
+                <input type="hidden" name="condition" value="{{ city_condition }}">
+                <input type="hidden" name="temp_celsius" value="{{ city_temp_celsius }}">
+                <input type="hidden" name="temp_celsius_feels_like" value="{{ city_temp_feels_like }}">
+
+                <button type="submit" class="submit-weather-btn">Add to Dashboard</button>
+            </form>
+
+        </div>
         {% endif %}
+
+        <!-- Navigation -->
+        <nav class="loggedin-nav">
+            <a href="/Dashboard">Back to Dashboard</a>
+        </nav>
+
     </div>
-    <nav class="navbar">
-        <a href="/Dashboard">Back to Dashboard</a>
-    </nav>
 
 </body>
-</html> 
+</html>
+

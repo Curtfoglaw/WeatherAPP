@@ -1,55 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='dashboard.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
+    <title>Dashboard</title>
+</head>
 
-        <title>Dashboard</title>
-    </head>
-    <body>
-        <h1>Welcome {{user|capitalize}}</h1>
+<body>
 
-        <div class="WeatherHistory">
-            <h2> {{current_user_name}} saved weather </h2>
-                <div class="empty_msg">
-                    {% if empty_msg %}
-                        <p>{{empty_msg}} </p>
-                    {% endif %}
-                </div>
-    
-                {% for entry in weather_history %}
-                    <div class="history">
-                        <form action="/Dashboard" method="POST">
-                            <button type="submit" name="weather_id" class="deletehistory">-</button>
-                            <table class="weatherhistorytable">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="entry_id" value="{{entry['entry_id']}}">
-                                <tr>
-                                    <th>City</th>
-                                    <td>{{entry["city"]}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Condition</th>
-                                    <td>{{entry["city_condition"]}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Temperature</th>
-                                    <td>{{entry["city_temp_celsius"]}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Temperature feels like</th>
-                                    <td>{{entry["city_temp_celsius_feels_like"]}}</td>
-                                </tr>
-                            </table>
-                        </form>
-                    </div>
-                {%endfor%}
+    <div class="weather-container">
+
+        <h1 class="page-title">Welcome {{ user|capitalize }}</h1>
+
+        <h2 class="page-title">Saved Weather</h2>
+
+        <!-- Empty message -->
+        {% if empty_msg %}
+            <p class="error-message">{{ empty_msg }}</p>
+        {% endif %}
+
+        <!-- Saved Weather Cards -->
+        {% for entry in weather_history %}
+        <div class="weather-output">
+
+            <table class="WeatherOutputTable">
+                <tr>
+                    <th>City</th>
+                    <td>{{ entry["city"] }}</td>
+                </tr>
+                <tr>
+                    <th>Condition</th>
+                    <td>{{ entry["city_condition"] }}</td>
+                </tr>
+                <tr>
+                    <th>Temperature</th>
+                    <td>{{ entry["city_temp_celsius"] }}</td>
+                </tr>
+                <tr>
+                    <th>Feels Like</th>
+                    <td>{{ entry["city_temp_celsius_feels_like"] }}</td>
+                </tr>
+            </table>
+
+            <form action="/Dashboard" method="POST" class="delete-form">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="entry_id" value="{{ entry['entry_id'] }}">
+
+                <button type="submit" class="submit-weather-btn delete-btn">
+                    Delete
+                </button>
+            </form>
+
         </div>
+        {% endfor %}
 
+        <!-- Navigation -->
         <nav class="navbar">
             <a href="/WeatherAppLoggedIn">Weather</a>
             <a href="/">Logout</a>
             <a href="/SignUp">Signup</a>
         </nav>
-    </body>
+
+    </div>
+
+</body>
 </html>
